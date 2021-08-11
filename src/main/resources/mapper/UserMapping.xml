@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.faw.vw.testshow.dao.UserDao">
+
+
+<!--<id>用来标识出对象的唯一性，比如用表的主键column指定数据库字段名或者其别名, property指定javaBean的属性名-->
+    <resultMap id="BaseResultMap" type="com.faw.vw.testshow.domain.UserDo" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getAll" resultMap="BaseResultMap" >
+        select `user_id`,`user_name`,`password` from user_info
+        <where>
+             <if test="userName != null  and userName != ''" >and user_name = #{ userName,jdbcType=VARCHAR}</if>
+             <if test="password != null and password != ''" >and password = #{ password,jdbcType=VARCHAR}</if>
+        </where>
+    </select>
+    <select id="getUserId" resultType="java.lang.Integer" >
+        select `user_id` from user_info where `user_name` = #{userName} and `password` = #{password}
+    </select>
+</mapper>

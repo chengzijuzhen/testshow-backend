@@ -1,0 +1,24 @@
+server:
+  port: 9091
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 配置Mybatis的驼峰实体映射规则
+  mapper-locations: mapper/UserMapping.xml # mapper映射文件
+  type-aliases-package: com.faw.vw.**.domain # entity别名类所在包
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: root
+    hikari:
+      max-lifetime: 490000 # 单位是毫秒，不能小于30秒，否则默认回到1800秒，还要小于my.ini中设置的wait_timeout
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 30000
+      minimum-idle: 10
+      maximum-pool-size: 10
+      connection-test-query: select 1
+# yaml格式文件的写入 要求严格 （等阶平齐，顶格输入）
+
